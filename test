@@ -4775,7 +4775,7 @@ function library:CreateSettingsTab(menu)
 
     mainSection:AddButton({text = 'Join Discord', flag = 'joindiscord', confirm = true, callback = function()
         local res = syn.request({
-            Url = 'http://127.0.0.1:6463/rpc?v=1',
+            Url = 'https://discord.gg/dneAK8Aw',
             Method = 'POST',
             Headers = {
                 ['Content-Type'] = 'application/json',
@@ -4793,7 +4793,7 @@ function library:CreateSettingsTab(menu)
     end})
     
     mainSection:AddButton({text = 'Copy Discord', flag = 'copydiscord', callback = function()
-        setclipboard('discord.gg/seU6gab')
+        setclipboard('https://discord.gg/dneAK8Aw')
     end})
 
     mainSection:AddButton({text = 'Rejoin Server', confirm = true, callback = function()
