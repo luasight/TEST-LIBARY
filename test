@@ -4784,11 +4784,11 @@ function library:CreateSettingsTab(menu)
             Body = game:GetService('HttpService'):JSONEncode({
                 cmd = 'INVITE_BROWSER',
                 nonce = game:GetService('HttpService'):GenerateGUID(false),
-                args = {code = 'seU6gab'}
+                args = {code = 'dneAK8Aw'}
             })
         })
         if res.Success then
-            library:SendNotification(library.cheatname..' | joined discord', 3);
+            library:SendNotification(library.cheatname..' | Joined Discord', 3);
         end
     end})
     
