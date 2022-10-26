@@ -4715,7 +4715,7 @@ function library:init()
 end
 
 function library:CreateSettingsTab(menu)
-    local settingsTab = menu:AddTab(' Settings ', 999);
+    local settingsTab = menu:AddTab('Settings', 999);
     local configSection = settingsTab:AddSection('Config', 2);
     local mainSection = settingsTab:AddSection('Main', 1);
 
@@ -4754,7 +4754,7 @@ function library:CreateSettingsTab(menu)
 
     refreshConfigs()
 
-    mainSection:AddBind({text = 'Open / Close', flag = 'togglebind', nomouse = true, noindicator = true, bind = Enum.KeyCode.Z, callback = function()
+    mainSection:AddBind({text = 'Open / Close', flag = 'togglebind', nomouse = true, noindicator = true, bind = Enum.KeyCode.End, callback = function()
         library:SetOpen(not library.open)
     end});
 
@@ -4775,7 +4775,7 @@ function library:CreateSettingsTab(menu)
 
     mainSection:AddButton({text = 'Join Discord', flag = 'joindiscord', confirm = true, callback = function()
         local res = syn.request({
-            Url = 'https://discord.gg/dneAK8Aw',
+            Url = 'http://127.0.0.1:6463/rpc?v=1',
             Method = 'POST',
             Headers = {
                 ['Content-Type'] = 'application/json',
@@ -4784,16 +4784,16 @@ function library:CreateSettingsTab(menu)
             Body = game:GetService('HttpService'):JSONEncode({
                 cmd = 'INVITE_BROWSER',
                 nonce = game:GetService('HttpService'):GenerateGUID(false),
-                args = {code = 'dneAK8Aw'}
+                args = {code = 'seU6gab'}
             })
         })
         if res.Success then
-            library:SendNotification(library.cheatname..' | Joined Discord', 3);
+            library:SendNotification(library.cheatname..' | joined discord', 3);
         end
     end})
     
     mainSection:AddButton({text = 'Copy Discord', flag = 'copydiscord', callback = function()
-        setclipboard('https://discord.gg/dneAK8Aw')
+        setclipboard('discord.gg/seU6gab')
     end})
 
     mainSection:AddButton({text = 'Rejoin Server', confirm = true, callback = function()
@@ -4817,7 +4817,9 @@ function library:CreateSettingsTab(menu)
     end})
 
     mainSection:AddSeparator({text = 'Keybinds'});
-    mainSection:AddToggle({text = 'Keybind Indicator', flag = 'keybind_indicator', state = false})
+    mainSection:AddToggle({text = 'Keybind Indicator', flag = 'keybind_indicator', callback = function(bool)
+        library.keyIndicator:SetEnabled(bool);
+    end})
     mainSection:AddSlider({text = 'Position X', flag = 'keybind_indicator_x', min = 0, max = 100, increment = .1, value = .5, callback = function()
         library.keyIndicator:SetPosition(newUDim2(library.flags.keybind_indicator_x / 100, 0, library.flags.keybind_indicator_y / 100, 0));    
     end});
@@ -4826,18 +4828,18 @@ function library:CreateSettingsTab(menu)
     end});
 
     mainSection:AddSeparator({text = 'Watermark'})
-    mainSection:AddToggle({text = 'Enabled', flag = 'watermark_enabled', state = true});
+    mainSection:AddToggle({text = 'Enabled', flag = 'watermark_enabled'});
     mainSection:AddList({text = 'Position', flag = 'watermark_pos', selected = 'Custom', values = {'Top', 'Top Left', 'Top Right', 'Bottom Left', 'Bottom Right', 'Custom'}, callback = function(val)
         library.watermark.lock = val;
     end})
-    mainSection:AddSlider({text = 'Custom X', flag = 'watermark_x', suffix = '%', min = 0, max = 100, increment = .1, value = 5.5,});
-    mainSection:AddSlider({text = 'Custom Y', flag = 'watermark_y', suffix = '%', min = 0, max = 100, increment = .1, value = 1,});
+    mainSection:AddSlider({text = 'Custom X', flag = 'watermark_x', suffix = '%', min = 0, max = 100, increment = .1});
+    mainSection:AddSlider({text = 'Custom Y', flag = 'watermark_y', suffix = '%', min = 0, max = 100, increment = .1});
 
     local themeStrings = {"Custom"};
     for _,v in next, library.themes do
         table.insert(themeStrings, v.name)
     end
-    local themeTab = menu:AddTab(' Theme ', 990);
+    local themeTab = menu:AddTab('Theme', 990);
     local themeSection = themeTab:AddSection('Theme', 1);
     local setByPreset = false
 
