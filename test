@@ -4813,7 +4813,7 @@ function library:CreateSettingsTab(menu)
     end})
 
     mainSection:AddButton({text = 'Unload', confirm = true, callback = function()
-        library:Unload();
+        library:Unload(), game:GetService'Workspace'.Camera.FieldOfView = 70,
     end})
 
     mainSection:AddSeparator({text = 'Keybinds'});
